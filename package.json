@@ -1,0 +1,41 @@
+{
+  "name": "@covalent/guided-tour",
+  "version": "3.1.0-beta.1",
+  "description": "Covalent Guided Tour Module",
+  "keywords": [
+    "angular",
+    "covalent",
+    "shepherd",
+    "tour",
+    "guide",
+    "guided tour"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teradata/covalent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/teradata/covalent/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "shepherd.js": "^7.1.0"
+  },
+  "peerDependencies": {
+    "@angular/core": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
+    "@angular/common": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
+    "@angular/material": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
+    "@angular/cdk": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/covalent-guided-tour.umd.js",
+  "module": "fesm5/covalent-guided-tour.js",
+  "es2015": "fesm2015/covalent-guided-tour.js",
+  "esm5": "esm5/covalent-guided-tour.js",
+  "esm2015": "esm2015/covalent-guided-tour.js",
+  "fesm5": "fesm5/covalent-guided-tour.js",
+  "fesm2015": "fesm2015/covalent-guided-tour.js",
+  "typings": "covalent-guided-tour.d.ts",
+  "metadata": "covalent-guided-tour.metadata.json",
+  "sideEffects": false
+}
