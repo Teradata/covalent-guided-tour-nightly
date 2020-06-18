@@ -27,6 +27,7 @@ export interface ITourStepAttachToOptions extends ITourEventOnOptions {
     skipIfNotFound?: boolean;
     else?: string;
     goBackTo?: string;
+    skipFromStepCount?: boolean;
 }
 export interface ITourStepAdvanceOn extends ITourEventOn {
 }
@@ -39,6 +40,7 @@ export interface ITourStep extends TourStep {
     advanceOnOptions?: ITourStepAdvanceOnOptions;
     advanceOn?: ITourStepAdvanceOn[] | ITourStepAdvanceOn | any;
     abortOn?: ITourAbortOn[];
+    count?: number;
 }
 declare abstract class TourButtonsActions {
     abstract next(): void;

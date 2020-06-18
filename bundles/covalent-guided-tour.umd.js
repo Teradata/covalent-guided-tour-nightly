@@ -279,6 +279,8 @@
         ITourStepAttachToOptions.prototype.else;
         /** @type {?|undefined} */
         ITourStepAttachToOptions.prototype.goBackTo;
+        /** @type {?|undefined} */
+        ITourStepAttachToOptions.prototype.skipFromStepCount;
     }
     /**
      * @record
@@ -307,6 +309,8 @@
         ITourStep.prototype.advanceOn;
         /** @type {?|undefined} */
         ITourStep.prototype.abortOn;
+        /** @type {?|undefined} */
+        ITourStep.prototype.count;
     }
     /**
      * @abstract
@@ -515,9 +519,6 @@
              * @return {?}
              */
             function () {
-                // get step index of current step
-                /** @type {?} */
-                var stepIndex = this.shepherdTour.steps.indexOf(this.shepherdTour.currentStep);
                 // get all the footers that are available in the DOM
                 /** @type {?} */
                 var footers = Array.from(document.querySelectorAll('.shepherd-footer'));
@@ -528,19 +529,37 @@
                 /** @type {?} */
                 var progress = document.createElement('span');
                 progress.className = 'shepherd-progress';
-                progress.innerText = stepIndex + 1 + "/" + this.shepherdTour.steps.length;
+                progress.innerText = this.shepherdTour.currentStep.options.count + "/" + stepTotal;
                 // insert into the footer before the first button
                 footer.insertBefore(progress, footer.querySelector('.shepherd-button'));
             });
+            /** @type {?} */
+            var stepTotal = 0;
             /** @type {?} */
             var steps = originalSteps.map((/**
              * @param {?} step
              * @return {?}
              */
             function (step) {
+                var _a, _b, _c;
+                /** @type {?} */
+                var showProgress;
+                if (((_a = step.attachToOptions) === null || _a === void 0 ? void 0 : _a.skipFromStepCount) === true) {
+                    showProgress = (/**
+                     * @return {?}
+                     */
+                    function () {
+                        return;
+                    });
+                }
+                else if (((_b = step.attachToOptions) === null || _b === void 0 ? void 0 : _b.skipFromStepCount) === undefined ||
+                    ((_c = step.attachToOptions) === null || _c === void 0 ? void 0 : _c.skipFromStepCount) === false) {
+                    step.count = ++stepTotal;
+                    showProgress = appendProgressFunc.bind(_this);
+                }
                 return Object.assign({}, step, {
                     when: {
-                        show: appendProgressFunc.bind(_this),
+                        show: showProgress,
                     },
                 });
             }));
