@@ -279,15 +279,21 @@ var CovalentGuidedTour = /** @class */ (function (_super) {
     /**
      * @protected
      * @param {?} originalSteps
+     * @param {?=} finishLabel
+     * @param {?=} dismissLabel
      * @return {?}
      */
     CovalentGuidedTour.prototype._prepareTour = /**
      * @protected
      * @param {?} originalSteps
+     * @param {?=} finishLabel
+     * @param {?=} dismissLabel
      * @return {?}
      */
-    function (originalSteps) {
+    function (originalSteps, finishLabel, dismissLabel) {
         var _this = this;
+        if (finishLabel === void 0) { finishLabel = 'finish'; }
+        if (dismissLabel === void 0) { dismissLabel = 'cancel tour'; }
         // create Subjects for back and forward events
         /** @type {?} */
         var backEvent$ = new Subject();
@@ -352,13 +358,13 @@ var CovalentGuidedTour = /** @class */ (function (_super) {
         }));
         /** @type {?} */
         var finishButton = {
-            text: 'finish',
+            text: finishLabel,
             action: this['finish'].bind(this),
             classes: MAT_BUTTON,
         };
         /** @type {?} */
         var dismissButton = {
-            text: 'cancel tour',
+            text: dismissLabel,
             action: this['cancel'].bind(this),
             classes: MAT_BUTTON,
         };
@@ -765,6 +771,10 @@ function IGuidedTour() { }
 if (false) {
     /** @type {?} */
     IGuidedTour.prototype.steps;
+    /** @type {?|undefined} */
+    IGuidedTour.prototype.finishButtonText;
+    /** @type {?|undefined} */
+    IGuidedTour.prototype.dismissButtonText;
 }
 /**
  * @record
@@ -850,7 +860,7 @@ var CovalentGuidedTourService = /** @class */ (function (_super) {
             // remove steps from tour since we need to preprocess them first
             this.newTour(Object.assign({}, guidedTour, { steps: undefined }));
             /** @type {?} */
-            var tourInstance = this.shepherdTour.addSteps(this._configureRoutesForSteps(this._prepareTour(guidedTour.steps)));
+            var tourInstance = this.shepherdTour.addSteps(this._configureRoutesForSteps(this._prepareTour(guidedTour.steps, guidedTour.finishButtonText, guidedTour.dismissButtonText)));
             this.start();
             return tourInstance;
         }

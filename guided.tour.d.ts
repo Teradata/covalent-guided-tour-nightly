@@ -60,7 +60,7 @@ export declare class CovalentGuidedTour extends TourButtonsActions {
     finish(): void;
     addSteps(steps: ITourStep[]): void;
     start(): void;
-    protected _prepareTour(originalSteps: ITourStep[]): ITourStep[];
+    protected _prepareTour(originalSteps: ITourStep[], finishLabel?: string, dismissLabel?: string): ITourStep[];
     private _bindEvent;
 }
 export {};

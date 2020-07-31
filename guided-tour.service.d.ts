@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { CovalentGuidedTour, ITourStep, ITourOptions } from './guided.tour';
 export interface IGuidedTour extends ITourOptions {
     steps: IGuidedTourStep[];
+    finishButtonText?: string;
+    dismissButtonText?: string;
 }
 export interface IGuidedTourStep extends ITourStep {
     routing?: {

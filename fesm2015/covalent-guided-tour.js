@@ -250,9 +250,11 @@ class CovalentGuidedTour extends TourButtonsActions {
     /**
      * @protected
      * @param {?} originalSteps
+     * @param {?=} finishLabel
+     * @param {?=} dismissLabel
      * @return {?}
      */
-    _prepareTour(originalSteps) {
+    _prepareTour(originalSteps, finishLabel = 'finish', dismissLabel = 'cancel tour') {
         // create Subjects for back and forward events
         /** @type {?} */
         const backEvent$ = new Subject();
@@ -317,13 +319,13 @@ class CovalentGuidedTour extends TourButtonsActions {
         }));
         /** @type {?} */
         const finishButton = {
-            text: 'finish',
+            text: finishLabel,
             action: this['finish'].bind(this),
             classes: MAT_BUTTON,
         };
         /** @type {?} */
         const dismissButton = {
-            text: 'cancel tour',
+            text: dismissLabel,
             action: this['cancel'].bind(this),
             classes: MAT_BUTTON,
         };
@@ -723,6 +725,10 @@ function IGuidedTour() { }
 if (false) {
     /** @type {?} */
     IGuidedTour.prototype.steps;
+    /** @type {?|undefined} */
+    IGuidedTour.prototype.finishButtonText;
+    /** @type {?|undefined} */
+    IGuidedTour.prototype.dismissButtonText;
 }
 /**
  * @record
@@ -787,7 +793,7 @@ class CovalentGuidedTourService extends CovalentGuidedTour {
             // remove steps from tour since we need to preprocess them first
             this.newTour(Object.assign({}, guidedTour, { steps: undefined }));
             /** @type {?} */
-            const tourInstance = this.shepherdTour.addSteps(this._configureRoutesForSteps(this._prepareTour(guidedTour.steps)));
+            const tourInstance = this.shepherdTour.addSteps(this._configureRoutesForSteps(this._prepareTour(guidedTour.steps, guidedTour.finishButtonText, guidedTour.dismissButtonText)));
             this.start();
             return tourInstance;
         }
