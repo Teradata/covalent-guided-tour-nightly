@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@angular/router'), require('rxjs/operators'), require('shepherd.js'), require('rxjs')) :
-    typeof define === 'function' && define.amd ? define('@covalent/guided-tour', ['exports', '@angular/core', '@angular/common', '@angular/common/http', '@angular/router', 'rxjs/operators', 'shepherd.js', 'rxjs'], factory) :
-    (global = global || self, factory((global.covalent = global.covalent || {}, global.covalent['guided-tour'] = {}), global.ng.core, global.ng.common, global.ng.common.http, global.ng.router, global.rxjs.operators, global.Shepherd, global.rxjs));
-}(this, (function (exports, core, common, http, router, operators, Shepherd, rxjs) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@angular/router'), require('rxjs/operators'), require('rxjs'), require('shepherd.js')) :
+    typeof define === 'function' && define.amd ? define('@covalent/guided-tour', ['exports', '@angular/core', '@angular/common', '@angular/common/http', '@angular/router', 'rxjs/operators', 'rxjs', 'shepherd.js'], factory) :
+    (global = global || self, factory((global.covalent = global.covalent || {}, global.covalent['guided-tour'] = {}), global.ng.core, global.ng.common, global.ng.common.http, global.ng.router, global.rxjs.operators, global.rxjs, global.Shepherd));
+}(this, (function (exports, core, common, http, router, operators, rxjs, Shepherd) { 'use strict';
 
     Shepherd = Shepherd && Object.prototype.hasOwnProperty.call(Shepherd, 'default') ? Shepherd['default'] : Shepherd;
 
@@ -375,6 +375,8 @@
     var MAT_ICON_BUTTON = 'mat-icon-button material-icons mat-button-base';
     /** @type {?} */
     var MAT_BUTTON = 'mat-button-base mat-button';
+    /** @type {?} */
+    var MAT_BUTTON_INVISIBLE = 'shepherd-void-button';
     var CovalentGuidedTour = /** @class */ (function (_super) {
         __extends(CovalentGuidedTour, _super);
         function CovalentGuidedTour(stepOptions) {
@@ -493,20 +495,17 @@
          * @protected
          * @param {?} originalSteps
          * @param {?=} finishLabel
-         * @param {?=} dismissLabel
          * @return {?}
          */
         CovalentGuidedTour.prototype._prepareTour = /**
          * @protected
          * @param {?} originalSteps
          * @param {?=} finishLabel
-         * @param {?=} dismissLabel
          * @return {?}
          */
-        function (originalSteps, finishLabel, dismissLabel) {
+        function (originalSteps, finishLabel) {
             var _this = this;
             if (finishLabel === void 0) { finishLabel = 'finish'; }
-            if (dismissLabel === void 0) { dismissLabel = 'cancel tour'; }
             // create Subjects for back and forward events
             /** @type {?} */
             var backEvent$ = new rxjs.Subject();
@@ -576,10 +575,15 @@
                 classes: MAT_BUTTON,
             };
             /** @type {?} */
-            var dismissButton = {
-                text: dismissLabel,
-                action: this['cancel'].bind(this),
-                classes: MAT_BUTTON,
+            var voidButton = {
+                text: '',
+                action: /**
+                 * @return {?}
+                 */
+                function () {
+                    return;
+                },
+                classes: MAT_BUTTON_INVISIBLE,
             };
             // listen to the destroyed event to clean up all the streams
             this._destroyedEvent$.pipe(operators.first()).subscribe((/**
@@ -658,7 +662,7 @@
                     advanceOn instanceof Array) {
                     step.advanceOn = undefined;
                     step.buttons =
-                        step.advanceOnOptions && step.advanceOnOptions.allowGoBack ? [backButton, dismissButton] : [dismissButton];
+                        step.advanceOnOptions && step.advanceOnOptions.allowGoBack ? [backButton, voidButton] : [voidButton];
                 }
                 // adds a default beforeShowPromise function
                 step.beforeShowPromise = (/**
@@ -752,11 +756,11 @@
                         }
                         // if we have an id as a string in either case, we use it (we ignore it if its HTMLElement)
                         if (id) {
-                            // if current step is the first step of the tour, we set the buttons to be only "next" or "dismiss"
+                            // if current step is the first step of the tour, we set the buttons to be only "next"
                             // we had to use `any` since the tour doesnt expose the steps in any fashion nor a way to check if we have modified them at all
                             if (_this.shepherdTour.getCurrentStep() === ((/** @type {?} */ (_this.shepherdTour))).steps[0]) {
                                 _this.shepherdTour.getCurrentStep().updateStepOptions({
-                                    buttons: originalSteps[index].advanceOn ? [dismissButton] : [nextButton],
+                                    buttons: originalSteps[index].advanceOn ? [voidButton] : [nextButton],
                                 });
                             }
                             // register to the attempts observable to notify deeveloper when number has been reached
@@ -986,8 +990,6 @@
         IGuidedTour.prototype.steps;
         /** @type {?|undefined} */
         IGuidedTour.prototype.finishButtonText;
-        /** @type {?|undefined} */
-        IGuidedTour.prototype.dismissButtonText;
     }
     /**
      * @record
@@ -997,9 +999,28 @@
         /** @type {?|undefined} */
         IGuidedTourStep.prototype.routing;
     }
+    /** @enum {string} */
+    var TourEvents = {
+        complete: 'complete',
+        cancel: 'cancel',
+        hide: 'hide',
+        show: 'show',
+        start: 'start',
+        active: 'active',
+        inactive: 'inactive',
+    };
     /**
-     *  Router enabled Shepherd tour
+     * @record
      */
+    function IGuidedTourEvent() { }
+    if (false) {
+        /** @type {?} */
+        IGuidedTourEvent.prototype.step;
+        /** @type {?} */
+        IGuidedTourEvent.prototype.previous;
+        /** @type {?} */
+        IGuidedTourEvent.prototype.tour;
+    }
     var CovalentGuidedTourService = /** @class */ (function (_super) {
         __extends(CovalentGuidedTourService, _super);
         function CovalentGuidedTourService(_router, _route, _httpClient) {
@@ -1008,6 +1029,7 @@
             _this._route = _route;
             _this._httpClient = _httpClient;
             _this._toursMap = new Map();
+            _this._tourStepURLs = new Map();
             _router.events
                 .pipe(operators.filter((/**
              * @param {?} event
@@ -1025,6 +1047,17 @@
             }));
             return _this;
         }
+        /**
+         * @param {?} str
+         * @return {?}
+         */
+        CovalentGuidedTourService.prototype.tourEvent$ = /**
+         * @param {?} str
+         * @return {?}
+         */
+        function (str) {
+            return rxjs.fromEvent(this.shepherdTour, str);
+        };
         /**
          * @param {?} tourName
          * @param {?} tour
@@ -1066,6 +1099,7 @@
          * @return {?}
          */
         function (tourName) {
+            var _this = this;
             /** @type {?} */
             var guidedTour = this._getTour(tourName);
             this.finish();
@@ -1073,7 +1107,32 @@
                 // remove steps from tour since we need to preprocess them first
                 this.newTour(Object.assign({}, guidedTour, { steps: undefined }));
                 /** @type {?} */
-                var tourInstance = this.shepherdTour.addSteps(this._configureRoutesForSteps(this._prepareTour(guidedTour.steps, guidedTour.finishButtonText, guidedTour.dismissButtonText)));
+                var tourInstance = this.shepherdTour.addSteps(this._configureRoutesForSteps(this._prepareTour(guidedTour.steps, guidedTour.finishButtonText)));
+                // init route transition if step URL is different then the current location.
+                this.tourEvent$(TourEvents.show).subscribe((/**
+                 * @param {?} tourEvent
+                 * @return {?}
+                 */
+                function (tourEvent) {
+                    /** @type {?} */
+                    var currentURL = _this._router.url.split(/[?#]/)[0];
+                    var _a = tourEvent.step, id = _a.id, options = _a.options;
+                    if (_this._tourStepURLs.has(id)) {
+                        /** @type {?} */
+                        var stepRoute = _this._tourStepURLs.get(id);
+                        if (stepRoute !== currentURL) {
+                            _this._router.navigate([stepRoute]);
+                        }
+                    }
+                    else {
+                        if (options && options.routing) {
+                            _this._tourStepURLs.set(id, options.routing.route);
+                        }
+                        else {
+                            _this._tourStepURLs.set(id, currentURL);
+                        }
+                    }
+                }));
                 this.start();
                 return tourInstance;
             }
@@ -1243,6 +1302,11 @@
          * @type {?}
          * @private
          */
+        CovalentGuidedTourService.prototype._tourStepURLs;
+        /**
+         * @type {?}
+         * @private
+         */
         CovalentGuidedTourService.prototype._router;
         /**
          * @type {?}
@@ -1278,6 +1342,7 @@
     exports.CovalentGuidedTourModule = CovalentGuidedTourModule;
     exports.CovalentGuidedTourService = CovalentGuidedTourService;
     exports.ITourEvent = ITourEvent;
+    exports.TourEvents = TourEvents;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
