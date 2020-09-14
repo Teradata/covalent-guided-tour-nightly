@@ -390,6 +390,7 @@ var CovalentGuidedTour = /** @class */ (function (_super) {
          * @return {?}
          */
         function (step, index) {
+            var _a;
             // create buttons specific for the step
             // this is done to create more control on events
             /** @type {?} */
@@ -423,7 +424,7 @@ var CovalentGuidedTour = /** @class */ (function (_super) {
                         _this.shepherdTour.back();
                     }
                 }),
-                classes: MAT_ICON_BUTTON,
+                classes: ((_a = step.advanceOnOptions) === null || _a === void 0 ? void 0 : _a.allowGoBack) === false ? MAT_BUTTON_INVISIBLE : MAT_ICON_BUTTON,
             };
             // check if highlight was provided for the step, else fallback into shepherds usage
             step.highlightClass =
