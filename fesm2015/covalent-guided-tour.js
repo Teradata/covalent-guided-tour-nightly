@@ -9,15 +9,16 @@ import Shepherd from 'shepherd.js';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * Generated from: guided.tour.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @enum {string} */
 const ITourEvent = {
-    'click': 'click',
-    'pointerover': 'pointerover',
-    'keyup': 'keyup',
-    'added': 'added',
-    'removed': 'removed',
+    'click': "click",
+    'pointerover': "pointerover",
+    'keyup': "keyup",
+    'added': "added",
+    'removed': "removed",
 };
 /**
  * @record
@@ -723,7 +724,8 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * Generated from: guided-tour.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @record
@@ -745,13 +747,13 @@ if (false) {
 }
 /** @enum {string} */
 const TourEvents = {
-    complete: 'complete',
-    cancel: 'cancel',
-    hide: 'hide',
-    show: 'show',
-    start: 'start',
-    active: 'active',
-    inactive: 'inactive',
+    complete: "complete",
+    cancel: "cancel",
+    hide: "hide",
+    show: "show",
+    start: "start",
+    active: "active",
+    inactive: "inactive",
 };
 /**
  * @record
@@ -1004,7 +1006,8 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * Generated from: guided-tour.module.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class CovalentGuidedTourModule {
 }
@@ -1019,17 +1022,20 @@ CovalentGuidedTourModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * Generated from: public-api.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * Generated from: index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * Generated from: covalent-guided-tour.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { CovalentGuidedTour, CovalentGuidedTourModule, CovalentGuidedTourService, ITourEvent, TourEvents };

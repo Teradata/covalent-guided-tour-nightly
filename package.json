@@ -19,21 +19,19 @@
   },
   "license": "MIT",
   "dependencies": {
-    "shepherd.js": "^7.1.0"
+    "shepherd.js": "^7.1.0",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/core": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
-    "@angular/common": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
-    "@angular/material": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
-    "@angular/cdk": "^8.0.0 || ^9.0.0 || ^10.0.0-0",
-    "tslib": "^1.10.0"
+    "@angular/core": "^9.0.0 || ^10.0.0-0",
+    "@angular/common": "^9.0.0 || ^10.0.0-0",
+    "@angular/material": "^9.0.0 || ^10.0.0-0",
+    "@angular/cdk": "^9.0.0 || ^10.0.0-0"
   },
   "main": "bundles/covalent-guided-tour.umd.js",
-  "module": "fesm5/covalent-guided-tour.js",
+  "module": "fesm2015/covalent-guided-tour.js",
   "es2015": "fesm2015/covalent-guided-tour.js",
-  "esm5": "esm5/covalent-guided-tour.js",
   "esm2015": "esm2015/covalent-guided-tour.js",
-  "fesm5": "fesm5/covalent-guided-tour.js",
   "fesm2015": "fesm2015/covalent-guided-tour.js",
   "typings": "covalent-guided-tour.d.ts",
   "metadata": "covalent-guided-tour.metadata.json",

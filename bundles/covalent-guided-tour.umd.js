@@ -1,55 +1,58 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@angular/router'), require('rxjs/operators'), require('rxjs'), require('shepherd.js')) :
     typeof define === 'function' && define.amd ? define('@covalent/guided-tour', ['exports', '@angular/core', '@angular/common', '@angular/common/http', '@angular/router', 'rxjs/operators', 'rxjs', 'shepherd.js'], factory) :
-    (global = global || self, factory((global.covalent = global.covalent || {}, global.covalent['guided-tour'] = {}), global.ng.core, global.ng.common, global.ng.common.http, global.ng.router, global.rxjs.operators, global.rxjs, global.Shepherd));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.covalent = global.covalent || {}, global.covalent['guided-tour'] = {}), global.ng.core, global.ng.common, global.ng.common.http, global.ng.router, global.rxjs.operators, global.rxjs, global.Shepherd));
 }(this, (function (exports, core, common, http, router, operators, rxjs, Shepherd) { 'use strict';
 
-    Shepherd = Shepherd && Object.prototype.hasOwnProperty.call(Shepherd, 'default') ? Shepherd['default'] : Shepherd;
+    function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+    var Shepherd__default = /*#__PURE__*/_interopDefaultLegacy(Shepherd);
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b)
+                if (Object.prototype.hasOwnProperty.call(b, p))
+                    d[p] = b[p]; };
         return extendStatics(d, b);
     };
-
     function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
-
-    var __assign = function() {
+    var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
             }
             return t;
         };
         return __assign.apply(this, arguments);
     };
-
     function __rest(s, e) {
         var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+                t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
             for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
@@ -57,161 +60,247 @@
             }
         return t;
     }
-
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+            r = Reflect.decorate(decorators, target, key, desc);
+        else
+            for (var i = decorators.length - 1; i >= 0; i--)
+                if (d = decorators[i])
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
-
     function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
+        return function (target, key) { decorator(target, key, paramIndex); };
     }
-
     function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+            return Reflect.metadata(metadataKey, metadataValue);
     }
-
     function __awaiter(thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
             function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
-
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
                 }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-
-    function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        o[k2] = m[k];
+    });
+    function __exportStar(m, o) {
+        for (var p in m)
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
-
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
+        if (m)
+            return m.call(o);
+        if (o && typeof o.length === "number")
+            return {
+                next: function () {
+                    if (o && i >= o.length)
+                        o = void 0;
+                    return { value: o && o[i++], done: !o };
+                }
+            };
         throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
-
     function __read(o, n) {
         var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
+        if (!m)
+            return o;
         var i = m.call(o), r, ar = [], e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
         }
-        catch (error) { e = { error: error }; }
+        catch (error) {
+            e = { error: error };
+        }
         finally {
             try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
             }
-            finally { if (e) throw e.error; }
+            finally {
+                if (e)
+                    throw e.error;
+            }
         }
         return ar;
     }
-
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+            s += arguments[i].length;
         for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
                 r[k] = a[j];
         return r;
-    };
-
+    }
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
-
     function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function verb(n) { if (g[n])
+            i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try {
+            step(g[n](v));
+        }
+        catch (e) {
+            settle(q[0][3], e);
+        } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
         function fulfill(value) { resume("next", value); }
         function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+        function settle(f, v) { if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]); }
     }
-
     function __asyncDelegator(o) {
         var i, p;
         return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
         function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
-
     function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var m = o[Symbol.asyncIterator], i;
         return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
     }
-
     function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
         return cooked;
+    }
+    ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function (o, v) {
+        o["default"] = v;
     };
-
     function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
+        if (mod && mod.__esModule)
+            return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-        result.default = mod;
+        if (mod != null)
+            for (var k in mod)
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
-
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-
     function __classPrivateFieldGet(receiver, privateMap) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to get private field on non-instance");
         }
         return privateMap.get(receiver);
     }
-
     function __classPrivateFieldSet(receiver, privateMap, value) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to set private field on non-instance");
@@ -220,17 +309,13 @@
         return value;
     }
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     /** @enum {string} */
     var ITourEvent = {
-        'click': 'click',
-        'pointerover': 'pointerover',
-        'keyup': 'keyup',
-        'added': 'added',
-        'removed': 'removed',
+        'click': "click",
+        'pointerover': "pointerover",
+        'keyup': "keyup",
+        'added': "added",
+        'removed': "removed",
     };
     /**
      * @record
@@ -315,10 +400,7 @@
     /**
      * @abstract
      */
-    var /**
-     * @abstract
-     */
-    TourButtonsActions = /** @class */ (function () {
+    var TourButtonsActions = /** @class */ (function () {
         function TourButtonsActions() {
         }
         return TourButtonsActions;
@@ -379,6 +461,9 @@
     var MAT_BUTTON_INVISIBLE = 'shepherd-void-button';
     var CovalentGuidedTour = /** @class */ (function (_super) {
         __extends(CovalentGuidedTour, _super);
+        /**
+         * @param {?=} stepOptions
+         */
         function CovalentGuidedTour(stepOptions) {
             if (stepOptions === void 0) { stepOptions = defaultStepOptions; }
             var _this = _super.call(this) || this;
@@ -390,23 +475,18 @@
          * @param {?=} opts
          * @return {?}
          */
-        CovalentGuidedTour.prototype.newTour = /**
-         * @param {?=} opts
-         * @return {?}
-         */
-        function (opts) {
+        CovalentGuidedTour.prototype.newTour = function (opts) {
             var _this = this;
-            this.shepherdTour = new Shepherd.Tour(Object.assign({
+            this.shepherdTour = new Shepherd__default['default'].Tour(Object.assign({
                 defaultStepOptions: this.stepOptions,
             }, opts));
             this._destroyedEvent$ = new rxjs.Subject();
             // listen to cancel and complete to clean up abortOn events
             rxjs.merge(rxjs.fromEvent(this.shepherdTour, 'cancel'), rxjs.fromEvent(this.shepherdTour, 'complete'))
                 .pipe(operators.first())
-                .subscribe((/**
-             * @return {?}
-             */
-            function () {
+                .subscribe(( /**
+         * @return {?}
+         */function () {
                 _this._destroyedEvent$.next();
                 _this._destroyedEvent$.complete();
             }));
@@ -414,11 +494,10 @@
             if (opts && opts.abortOn) {
                 /** @type {?} */
                 var abortArr$_1 = [];
-                opts.abortOn.forEach((/**
+                opts.abortOn.forEach(( /**
                  * @param {?} abortOn
                  * @return {?}
-                 */
-                function (abortOn) {
+                 */function (abortOn) {
                     /** @type {?} */
                     var abortEvent$ = new rxjs.Subject();
                     abortArr$_1.push(abortEvent$);
@@ -426,10 +505,9 @@
                 }));
                 /** @type {?} */
                 var abortSubs_1 = rxjs.merge.apply(void 0, __spread(abortArr$_1)).pipe(operators.takeUntil(this._destroyedEvent$))
-                    .subscribe((/**
-                 * @return {?}
-                 */
-                function () {
+                    .subscribe(( /**
+             * @return {?}
+             */function () {
                     _this.shepherdTour.complete();
                     abortSubs_1.unsubscribe();
                 }));
@@ -438,57 +516,38 @@
         /**
          * @return {?}
          */
-        CovalentGuidedTour.prototype.back = /**
-         * @return {?}
-         */
-        function () {
+        CovalentGuidedTour.prototype.back = function () {
             this.shepherdTour.back();
         };
         /**
          * @return {?}
          */
-        CovalentGuidedTour.prototype.cancel = /**
-         * @return {?}
-         */
-        function () {
+        CovalentGuidedTour.prototype.cancel = function () {
             this.shepherdTour.cancel();
         };
         /**
          * @return {?}
          */
-        CovalentGuidedTour.prototype.next = /**
-         * @return {?}
-         */
-        function () {
+        CovalentGuidedTour.prototype.next = function () {
             this.shepherdTour.next();
         };
         /**
          * @return {?}
          */
-        CovalentGuidedTour.prototype.finish = /**
-         * @return {?}
-         */
-        function () {
+        CovalentGuidedTour.prototype.finish = function () {
             this.shepherdTour.complete();
         };
         /**
          * @param {?} steps
          * @return {?}
          */
-        CovalentGuidedTour.prototype.addSteps = /**
-         * @param {?} steps
-         * @return {?}
-         */
-        function (steps) {
+        CovalentGuidedTour.prototype.addSteps = function (steps) {
             this.shepherdTour.addSteps(this._prepareTour(steps));
         };
         /**
          * @return {?}
          */
-        CovalentGuidedTour.prototype.start = /**
-         * @return {?}
-         */
-        function () {
+        CovalentGuidedTour.prototype.start = function () {
             this.shepherdTour.start();
         };
         /**
@@ -497,13 +556,7 @@
          * @param {?=} finishLabel
          * @return {?}
          */
-        CovalentGuidedTour.prototype._prepareTour = /**
-         * @protected
-         * @param {?} originalSteps
-         * @param {?=} finishLabel
-         * @return {?}
-         */
-        function (originalSteps, finishLabel) {
+        CovalentGuidedTour.prototype._prepareTour = function (originalSteps, finishLabel) {
             var _this = this;
             if (finishLabel === void 0) { finishLabel = 'finish'; }
             // create Subjects for back and forward events
@@ -520,10 +573,9 @@
              * This function adds the step progress in the footer of the shepherd tooltip
              * @type {?}
              */
-            var appendProgressFunc = (/**
+            var appendProgressFunc = ( /**
              * @return {?}
-             */
-            function () {
+             */function () {
                 // get all the footers that are available in the DOM
                 /** @type {?} */
                 var footers = Array.from(document.querySelectorAll('.shepherd-footer'));
@@ -541,19 +593,17 @@
             /** @type {?} */
             var stepTotal = 0;
             /** @type {?} */
-            var steps = originalSteps.map((/**
+            var steps = originalSteps.map(( /**
              * @param {?} step
              * @return {?}
-             */
-            function (step) {
+             */function (step) {
                 var _a, _b, _c;
                 /** @type {?} */
                 var showProgress;
                 if (((_a = step.attachToOptions) === null || _a === void 0 ? void 0 : _a.skipFromStepCount) === true) {
-                    showProgress = (/**
+                    showProgress = ( /**
                      * @return {?}
-                     */
-                    function () {
+                     */function () {
                         return;
                     });
                 }
@@ -577,19 +627,18 @@
             /** @type {?} */
             var voidButton = {
                 text: '',
-                action: /**
+                /**
                  * @return {?}
                  */
-                function () {
+                action: function () {
                     return;
                 },
                 classes: MAT_BUTTON_INVISIBLE,
             };
             // listen to the destroyed event to clean up all the streams
-            this._destroyedEvent$.pipe(operators.first()).subscribe((/**
+            this._destroyedEvent$.pipe(operators.first()).subscribe(( /**
              * @return {?}
-             */
-            function () {
+             */function () {
                 backEvent$.complete();
                 forwardEvent$.complete();
                 destroyedEvent$.next();
@@ -597,22 +646,20 @@
             }));
             /** @type {?} */
             var totalSteps = steps.length;
-            steps.forEach((/**
+            steps.forEach(( /**
              * @param {?} step
              * @param {?} index
              * @return {?}
-             */
-            function (step, index) {
+             */function (step, index) {
                 var _a;
                 // create buttons specific for the step
                 // this is done to create more control on events
                 /** @type {?} */
                 var nextButton = {
                     text: 'chevron_right',
-                    action: (/**
+                    action: ( /**
                      * @return {?}
-                     */
-                    function () {
+                     */function () {
                         // intercept the next action and trigger event
                         forwardEvent$.next();
                         _this.shepherdTour.next();
@@ -622,10 +669,9 @@
                 /** @type {?} */
                 var backButton = {
                     text: 'chevron_left',
-                    action: (/**
+                    action: ( /**
                      * @return {?}
-                     */
-                    function () {
+                     */function () {
                         // intercept the back action and trigger event
                         backEvent$.next();
                         _backFlow = true;
@@ -666,32 +712,28 @@
                         step.advanceOnOptions && step.advanceOnOptions.allowGoBack ? [backButton, voidButton] : [voidButton];
                 }
                 // adds a default beforeShowPromise function
-                step.beforeShowPromise = (/**
+                step.beforeShowPromise = ( /**
                  * @return {?}
-                 */
-                function () {
-                    return new Promise((/**
+                 */function () {
+                    return new Promise(( /**
                      * @param {?} resolve
                      * @return {?}
-                     */
-                    function (resolve) {
+                     */function (resolve) {
                         /** @type {?} */
-                        var additionalCapabilitiesSetup = (/**
+                        var additionalCapabilitiesSetup = ( /**
                          * @return {?}
-                         */
-                        function () {
+                         */function () {
                             if (advanceOn && !step.advanceOn) {
                                 if (!Array.isArray(advanceOn)) {
                                     advanceOn = [advanceOn];
                                 }
                                 /** @type {?} */
                                 var advanceArr$_1 = [];
-                                advanceOn.forEach((/**
+                                advanceOn.forEach(( /**
                                  * @param {?} _
                                  * @param {?} i
                                  * @return {?}
-                                 */
-                                function (_, i) {
+                                 */function (_, i) {
                                     /** @type {?} */
                                     var advanceEvent$ = new rxjs.Subject();
                                     advanceArr$_1.push(advanceEvent$);
@@ -700,10 +742,9 @@
                                 }));
                                 /** @type {?} */
                                 var advanceSubs_1 = rxjs.forkJoin.apply(void 0, __spread(advanceArr$_1)).pipe(operators.takeUntil(rxjs.merge(destroyedEvent$, backEvent$)))
-                                    .subscribe((/**
-                                 * @return {?}
-                                 */
-                                function () {
+                                    .subscribe(( /**
+                             * @return {?}
+                             */function () {
                                     // check if we need to advance to a specific step, else advance to next step
                                     if (step.advanceOnOptions && step.advanceOnOptions.jumpTo) {
                                         _this.shepherdTour.show(step.advanceOnOptions.jumpTo);
@@ -719,11 +760,10 @@
                             if (step.abortOn) {
                                 /** @type {?} */
                                 var abortArr$_2 = [];
-                                step.abortOn.forEach((/**
+                                step.abortOn.forEach(( /**
                                  * @param {?} abortOn
                                  * @return {?}
-                                 */
-                                function (abortOn) {
+                                 */function (abortOn) {
                                     /** @type {?} */
                                     var abortEvent$ = new rxjs.Subject();
                                     abortArr$_2.push(abortEvent$);
@@ -731,10 +771,9 @@
                                 }));
                                 /** @type {?} */
                                 var abortSubs_2 = rxjs.merge.apply(void 0, __spread(abortArr$_2)).pipe(operators.takeUntil(rxjs.merge(destroyedEvent$, backEvent$, forwardEvent$)))
-                                    .subscribe((/**
-                                 * @return {?}
-                                 */
-                                function () {
+                                    .subscribe(( /**
+                             * @return {?}
+                             */function () {
                                     _this.shepherdTour.complete();
                                     abortSubs_2.unsubscribe();
                                 }));
@@ -759,28 +798,26 @@
                         if (id) {
                             // if current step is the first step of the tour, we set the buttons to be only "next"
                             // we had to use `any` since the tour doesnt expose the steps in any fashion nor a way to check if we have modified them at all
-                            if (_this.shepherdTour.getCurrentStep() === ((/** @type {?} */ (_this.shepherdTour))).steps[0]) {
+                            if (_this.shepherdTour.getCurrentStep() === (( /** @type {?} */(_this.shepherdTour))).steps[0]) {
                                 _this.shepherdTour.getCurrentStep().updateStepOptions({
                                     buttons: originalSteps[index].advanceOn ? [voidButton] : [nextButton],
                                 });
                             }
                             // register to the attempts observable to notify deeveloper when number has been reached
                             _retryAttempts$
-                                .pipe(operators.skip(1), operators.takeUntil(rxjs.merge(_stopTimer$.asObservable(), destroyedEvent$)), operators.skipWhile((/**
-                             * @param {?} val
-                             * @return {?}
-                             */
-                            function (val) {
+                                .pipe(operators.skip(1), operators.takeUntil(rxjs.merge(_stopTimer$.asObservable(), destroyedEvent$)), operators.skipWhile(( /**
+                         * @param {?} val
+                         * @return {?}
+                         */function (val) {
                                 if (step.attachToOptions && step.attachToOptions.retries !== undefined) {
                                     return val < step.attachToOptions.retries;
                                 }
                                 return val < SHEPHERD_DEFAULT_FIND_ATTEMPTS;
                             })))
-                                .subscribe((/**
-                             * @param {?} attempts
-                             * @return {?}
-                             */
-                            function (attempts) {
+                                .subscribe(( /**
+                         * @param {?} attempts
+                         * @return {?}
+                         */function (attempts) {
                                 _retriesReached$.next();
                                 _retriesReached$.complete();
                                 // if attempts have been reached, we check "skipIfNotFound" to move on to the next step
@@ -789,7 +826,7 @@
                                     // then we either check if its the first step and try going forward
                                     // or we keep going back until we find a step that actually exists
                                     if (_backFlow) {
-                                        if (((/** @type {?} */ (_this.shepherdTour))).steps.indexOf(_this.shepherdTour.getCurrentStep()) === 0) {
+                                        if ((( /** @type {?} */(_this.shepherdTour))).steps.indexOf(_this.shepherdTour.getCurrentStep()) === 0) {
                                             _this.shepherdTour.next();
                                         }
                                         else {
@@ -803,7 +840,7 @@
                                         var currentStep = _this.shepherdTour.getCurrentStep();
                                         currentStep.destroy();
                                         _this.shepherdTour.next();
-                                        _this.shepherdTour.removeStep(((/** @type {?} */ (currentStep))).id);
+                                        _this.shepherdTour.removeStep((( /** @type {?} */(currentStep))).id);
                                     }
                                 }
                                 else if (step.attachToOptions && step.attachToOptions.else) {
@@ -822,10 +859,9 @@
                                 .pipe(
                             // the timer will continue either until we find the element or the number of attempts has been reached
                             operators.takeUntil(rxjs.merge(_stopTimer$, _retriesReached$, destroyedEvent$)))
-                                .subscribe((/**
-                             * @return {?}
-                             */
-                            function () {
+                                .subscribe(( /**
+                         * @return {?}
+                         */function () {
                                 /** @type {?} */
                                 var element = document.querySelector(id);
                                 // if the element has been found, we stop the timer and resolve the promise
@@ -840,10 +876,9 @@
                                 }
                             }));
                             // stop find interval if user stops the tour
-                            destroyedEvent$.subscribe((/**
+                            destroyedEvent$.subscribe(( /**
                              * @return {?}
-                             */
-                            function () {
+                             */function () {
                                 _stopTimer$.next();
                                 _stopTimer$.complete();
                                 _retriesReached$.next();
@@ -854,10 +889,9 @@
                             // resolve observable until the timeBeforeShow has passsed or use default
                             rxjs.timer((step.attachToOptions && step.attachToOptions.timeBeforeShow) || SHEPHERD_DEFAULT_FIND_TIME_BEFORE_SHOW)
                                 .pipe(operators.takeUntil(rxjs.merge(destroyedEvent$)))
-                                .subscribe((/**
-                             * @return {?}
-                             */
-                            function () {
+                                .subscribe(( /**
+                         * @return {?}
+                         */function () {
                                 resolve();
                             }));
                         }
@@ -874,15 +908,7 @@
          * @param {?} destroyedEvent$
          * @return {?}
          */
-        CovalentGuidedTour.prototype._bindEvent = /**
-         * @private
-         * @param {?} eventOn
-         * @param {?} eventOnOptions
-         * @param {?} event$
-         * @param {?} destroyedEvent$
-         * @return {?}
-         */
-        function (eventOn, eventOnOptions, event$, destroyedEvent$) {
+        CovalentGuidedTour.prototype._bindEvent = function (eventOn, eventOnOptions, event$, destroyedEvent$) {
             /** @type {?} */
             var selector = eventOn.selector;
             /** @type {?} */
@@ -891,10 +917,9 @@
             /** @type {?} */
             var timerSubs = rxjs.timer((eventOnOptions && eventOnOptions.timeBeforeShow) || SHEPHERD_DEFAULT_FIND_TIME_BEFORE_SHOW, (eventOnOptions && eventOnOptions.interval) || SHEPHERD_DEFAULT_FIND_INTERVAL)
                 .pipe(operators.takeUntil(destroyedEvent$))
-                .subscribe((/**
-             * @return {?}
-             */
-            function () {
+                .subscribe(( /**
+         * @return {?}
+         */function () {
                 /** @type {?} */
                 var element = document.querySelector(selector);
                 // if the element has been found, we stop the timer and resolve the promise
@@ -914,11 +939,10 @@
                         /** @type {?} */
                         var subEvent_1 = event.split('.')[1];
                         rxjs.fromEvent(element, mainEvent)
-                            .pipe(operators.takeUntil(rxjs.merge(event$.asObservable(), destroyedEvent$)), operators.filter((/**
-                         * @param {?} $event
-                         * @return {?}
-                         */
-                        function ($event) {
+                            .pipe(operators.takeUntil(rxjs.merge(event$.asObservable(), destroyedEvent$)), operators.filter(( /**
+                     * @param {?} $event
+                     * @return {?}
+                     */function ($event) {
                             // only trigger if the event is a keyboard event and part of out list
                             if ($event instanceof KeyboardEvent) {
                                 if (keyEvents.get($event.keyCode) === subEvent_1) {
@@ -930,10 +954,9 @@
                                 return true;
                             }
                         })))
-                            .subscribe((/**
-                         * @return {?}
-                         */
-                        function () {
+                            .subscribe(( /**
+                     * @return {?}
+                     */function () {
                             event$.next();
                             event$.complete();
                         }));
@@ -941,10 +964,9 @@
                     else if (event === ITourEvent.removed) {
                         // and we will use MutationObserver for DOM events
                         /** @type {?} */
-                        var observer_1 = new MutationObserver((/**
+                        var observer_1 = new MutationObserver(( /**
                          * @return {?}
-                         */
-                        function () {
+                         */function () {
                             if (!document.body.contains(element)) {
                                 event$.next();
                                 event$.complete();
@@ -952,10 +974,9 @@
                             }
                         }));
                         // stop listenining if tour is closed
-                        destroyedEvent$.subscribe((/**
+                        destroyedEvent$.subscribe(( /**
                          * @return {?}
-                         */
-                        function () {
+                         */function () {
                             observer_1.disconnect();
                         }));
                         // observe for any DOM interaction in the element
@@ -979,10 +1000,6 @@
     }
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /**
      * @record
      */
     function IGuidedTour() { }
@@ -1002,13 +1019,13 @@
     }
     /** @enum {string} */
     var TourEvents = {
-        complete: 'complete',
-        cancel: 'cancel',
-        hide: 'hide',
-        show: 'show',
-        start: 'start',
-        active: 'active',
-        inactive: 'inactive',
+        complete: "complete",
+        cancel: "cancel",
+        hide: "hide",
+        show: "show",
+        start: "start",
+        active: "active",
+        inactive: "inactive",
     };
     /**
      * @record
@@ -1024,6 +1041,11 @@
     }
     var CovalentGuidedTourService = /** @class */ (function (_super) {
         __extends(CovalentGuidedTourService, _super);
+        /**
+         * @param {?} _router
+         * @param {?} _route
+         * @param {?} _httpClient
+         */
         function CovalentGuidedTourService(_router, _route, _httpClient) {
             var _this = _super.call(this) || this;
             _this._router = _router;
@@ -1032,16 +1054,14 @@
             _this._toursMap = new Map();
             _this._tourStepURLs = new Map();
             _router.events
-                .pipe(operators.filter((/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) { return event instanceof router.NavigationStart && event.navigationTrigger === 'popstate'; })))
-                .subscribe((/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) {
+                .pipe(operators.filter(( /**
+         * @param {?} event
+         * @return {?}
+         */function (event) { return event instanceof router.NavigationStart && event.navigationTrigger === 'popstate'; })))
+                .subscribe(( /**
+         * @param {?} event
+         * @return {?}
+         */function (event) {
                 if (_this.shepherdTour.isActive) {
                     _this.shepherdTour.cancel();
                 }
@@ -1052,11 +1072,7 @@
          * @param {?} str
          * @return {?}
          */
-        CovalentGuidedTourService.prototype.tourEvent$ = /**
-         * @param {?} str
-         * @return {?}
-         */
-        function (str) {
+        CovalentGuidedTourService.prototype.tourEvent$ = function (str) {
             return rxjs.fromEvent(this.shepherdTour, str);
         };
         /**
@@ -1064,27 +1080,22 @@
          * @param {?} tour
          * @return {?}
          */
-        CovalentGuidedTourService.prototype.registerTour = /**
-         * @param {?} tourName
-         * @param {?} tour
-         * @return {?}
-         */
-        function (tourName, tour) {
+        CovalentGuidedTourService.prototype.registerTour = function (tourName, tour) {
             return __awaiter(this, void 0, void 0, function () {
-                var guidedTour, _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
+                var guidedTour, _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0:
                             if (!(typeof tour === 'string')) return [3 /*break*/, 2];
                             return [4 /*yield*/, this._loadTour(tour)];
                         case 1:
-                            _a = _b.sent();
+                            _b = _c.sent();
                             return [3 /*break*/, 3];
                         case 2:
-                            _a = tour;
-                            _b.label = 3;
+                            _b = tour;
+                            _c.label = 3;
                         case 3:
-                            guidedTour = _a;
+                            guidedTour = _b;
                             this._toursMap.set(tourName, guidedTour);
                             return [2 /*return*/];
                     }
@@ -1095,11 +1106,7 @@
          * @param {?} tourName
          * @return {?}
          */
-        CovalentGuidedTourService.prototype.startTour = /**
-         * @param {?} tourName
-         * @return {?}
-         */
-        function (tourName) {
+        CovalentGuidedTourService.prototype.startTour = function (tourName) {
             var _this = this;
             /** @type {?} */
             var guidedTour = this._getTour(tourName);
@@ -1110,14 +1117,13 @@
                 /** @type {?} */
                 var tourInstance = this.shepherdTour.addSteps(this._configureRoutesForSteps(this._prepareTour(guidedTour.steps, guidedTour.finishButtonText)));
                 // init route transition if step URL is different then the current location.
-                this.tourEvent$(TourEvents.show).subscribe((/**
+                this.tourEvent$(TourEvents.show).subscribe(( /**
                  * @param {?} tourEvent
                  * @return {?}
-                 */
-                function (tourEvent) {
+                 */function (tourEvent) {
                     /** @type {?} */
                     var currentURL = _this._router.url.split(/[?#]/)[0];
-                    var _a = tourEvent.step, id = _a.id, options = _a.options;
+                    var _b = tourEvent.step, id = _b.id, options = _b.options;
                     if (_this._tourStepURLs.has(id)) {
                         /** @type {?} */
                         var stepRoute = _this._tourStepURLs.get(id);
@@ -1144,27 +1150,17 @@
         };
         // Finds the right registered tour by using queryParams
         // finishes any other tour and starts the new one.
-        // Finds the right registered tour by using queryParams
-        // finishes any other tour and starts the new one.
         /**
          * @param {?=} queryParam
          * @return {?}
          */
-        CovalentGuidedTourService.prototype.initializeOnQueryParams = 
-        // Finds the right registered tour by using queryParams
-        // finishes any other tour and starts the new one.
-        /**
-         * @param {?=} queryParam
-         * @return {?}
-         */
-        function (queryParam) {
+        CovalentGuidedTourService.prototype.initializeOnQueryParams = function (queryParam) {
             var _this = this;
             if (queryParam === void 0) { queryParam = 'tour'; }
-            return this._route.queryParamMap.pipe(operators.debounceTime(100), operators.tap((/**
+            return this._route.queryParamMap.pipe(operators.debounceTime(100), operators.tap(( /**
              * @param {?} params
              * @return {?}
-             */
-            function (params) {
+             */function (params) {
                 /** @type {?} */
                 var tourParam = params.get(queryParam);
                 if (tourParam) {
@@ -1190,14 +1186,9 @@
          * @param {?} tourUrl
          * @return {?}
          */
-        CovalentGuidedTourService.prototype._loadTour = /**
-         * @private
-         * @param {?} tourUrl
-         * @return {?}
-         */
-        function (tourUrl) {
+        CovalentGuidedTourService.prototype._loadTour = function (tourUrl) {
             return __awaiter(this, void 0, void 0, function () {
-                var request, _a;
+                var request, _a_1;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
@@ -1206,17 +1197,16 @@
                         case 1:
                             _b.trys.push([1, 3, , 4]);
                             return [4 /*yield*/, request
-                                    .pipe(operators.map((/**
-                                 * @param {?} resultSet
-                                 * @return {?}
-                                 */
-                                function (resultSet) {
+                                    .pipe(operators.map(( /**
+                             * @param {?} resultSet
+                             * @return {?}
+                             */function (resultSet) {
                                     return JSON.parse(JSON.stringify(resultSet));
                                 })))
                                     .toPromise()];
                         case 2: return [2 /*return*/, _b.sent()];
                         case 3:
-                            _a = _b.sent();
+                            _a_1 = _b.sent();
                             return [2 /*return*/, undefined];
                         case 4: return [2 /*return*/];
                     }
@@ -1228,12 +1218,7 @@
          * @param {?} key
          * @return {?}
          */
-        CovalentGuidedTourService.prototype._getTour = /**
-         * @private
-         * @param {?} key
-         * @return {?}
-         */
-        function (key) {
+        CovalentGuidedTourService.prototype._getTour = function (key) {
             return this._toursMap.get(key);
         };
         /**
@@ -1241,18 +1226,12 @@
          * @param {?} routedSteps
          * @return {?}
          */
-        CovalentGuidedTourService.prototype._configureRoutesForSteps = /**
-         * @private
-         * @param {?} routedSteps
-         * @return {?}
-         */
-        function (routedSteps) {
+        CovalentGuidedTourService.prototype._configureRoutesForSteps = function (routedSteps) {
             var _this = this;
-            routedSteps.forEach((/**
+            routedSteps.forEach(( /**
              * @param {?} step
              * @return {?}
-             */
-            function (step) {
+             */function (step) {
                 if (step.routing) {
                     /** @type {?} */
                     var route_1 = step.routing.route;
@@ -1260,39 +1239,36 @@
                     if (step.beforeShowPromise) {
                         /** @type {?} */
                         var beforeShowPromise_1 = step.beforeShowPromise;
-                        step.beforeShowPromise = (/**
+                        step.beforeShowPromise = ( /**
                          * @return {?}
-                         */
-                        function () {
-                            return _this._router.navigate([route_1], step.routing.extras).then((/**
+                         */function () {
+                            return _this._router.navigate([route_1], step.routing.extras).then(( /**
                              * @return {?}
-                             */
-                            function () {
+                             */function () {
                                 return beforeShowPromise_1();
                             }));
                         });
                     }
                     else {
-                        step.beforeShowPromise = (/**
+                        step.beforeShowPromise = ( /**
                          * @return {?}
-                         */
-                        function () { return _this._router.navigate([route_1]); });
+                         */function () { return _this._router.navigate([route_1]); });
                     }
                 }
             }));
             return routedSteps;
         };
-        CovalentGuidedTourService.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        CovalentGuidedTourService.ctorParameters = function () { return [
-            { type: router.Router },
-            { type: router.ActivatedRoute },
-            { type: http.HttpClient }
-        ]; };
         return CovalentGuidedTourService;
     }(CovalentGuidedTour));
+    CovalentGuidedTourService.decorators = [
+        { type: core.Injectable }
+    ];
+    /** @nocollapse */
+    CovalentGuidedTourService.ctorParameters = function () { return [
+        { type: router.Router },
+        { type: router.ActivatedRoute },
+        { type: http.HttpClient }
+    ]; };
     if (false) {
         /**
          * @type {?}
@@ -1323,21 +1299,40 @@
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * Generated from: guided-tour.module.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var CovalentGuidedTourModule = /** @class */ (function () {
         function CovalentGuidedTourModule() {
         }
-        CovalentGuidedTourModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [common.CommonModule],
-                        providers: [CovalentGuidedTourService],
-                        declarations: [],
-                        exports: [],
-                    },] }
-        ];
         return CovalentGuidedTourModule;
     }());
+    CovalentGuidedTourModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [common.CommonModule],
+                    providers: [CovalentGuidedTourService],
+                    declarations: [],
+                    exports: [],
+                },] }
+    ];
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: public-api.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: covalent-guided-tour.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
 
     exports.CovalentGuidedTour = CovalentGuidedTour;
     exports.CovalentGuidedTourModule = CovalentGuidedTourModule;
