@@ -41,6 +41,7 @@ export declare class CovalentGuidedTourService extends CovalentGuidedTour {
     registerTour(tourName: string, tour: IGuidedTour | string): Promise<void>;
     startTour(tourName: string): Shepherd.Tour;
     initializeOnQueryParams(queryParam?: string): Observable<ParamMap>;
+    setNextBtnDisability(stepId: string, isDisabled: boolean): void;
     private _loadTour;
     private _getTour;
     private _configureRoutesForSteps;

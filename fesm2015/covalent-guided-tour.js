@@ -894,6 +894,27 @@ class CovalentGuidedTourService extends CovalentGuidedTour {
         })));
     }
     /**
+     * @param {?} stepId
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    setNextBtnDisability(stepId, isDisabled) {
+        if (this.shepherdTour.getById(stepId)) {
+            /** @type {?} */
+            const stepOptions = ((/** @type {?} */ (this.shepherdTour.getById(stepId)))).options;
+            stepOptions.buttons.forEach((/**
+             * @param {?} button
+             * @return {?}
+             */
+            (button) => {
+                if (button.text === 'chevron_right') {
+                    button.disabled = isDisabled;
+                }
+            }));
+            this.shepherdTour.getById(stepId).updateStepOptions(stepOptions);
+        }
+    }
+    /**
      * @private
      * @param {?} tourUrl
      * @return {?}

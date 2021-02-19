@@ -1182,6 +1182,26 @@
             })));
         };
         /**
+         * @param {?} stepId
+         * @param {?} isDisabled
+         * @return {?}
+         */
+        CovalentGuidedTourService.prototype.setNextBtnDisability = function (stepId, isDisabled) {
+            if (this.shepherdTour.getById(stepId)) {
+                /** @type {?} */
+                var stepOptions = (( /** @type {?} */(this.shepherdTour.getById(stepId)))).options;
+                stepOptions.buttons.forEach(( /**
+                 * @param {?} button
+                 * @return {?}
+                 */function (button) {
+                    if (button.text === 'chevron_right') {
+                        button.disabled = isDisabled;
+                    }
+                }));
+                this.shepherdTour.getById(stepId).updateStepOptions(stepOptions);
+            }
+        };
+        /**
          * @private
          * @param {?} tourUrl
          * @return {?}
